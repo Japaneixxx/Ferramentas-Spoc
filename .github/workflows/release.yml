@@ -12,14 +12,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Get previous commit
+      - name: Get previous version
         id: prev
         run: |
-          git fetch origin main
-          git checkout HEAD~1
-          PREV_VERSION=$(jq -r .version manifest.json)
+          PREV_VERSION=$(git show HEAD~1:manifest.json | jq -r .version || echo "")
           echo "PREV_VERSION=$PREV_VERSION" >> $GITHUB_ENV
-          git checkout -
 
       - name: Get current version
         id: curr
@@ -34,3 +31,9 @@ jobs:
           tag_name: ${{ env.CURR_VERSION }}
           name: Release ${{ env.CURR_VERSION }}
           body: "Release gerada automaticamente para a versão ${{ env.CURR_VERSION }}"
+          files: |
+            manifest.json
+            background.js
+            popup.html
+            popup.js
+            package.json
