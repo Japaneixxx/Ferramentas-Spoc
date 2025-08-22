@@ -1,0 +1,11 @@
+{
+  "name": "ferramentas-spoc",
+  "version": "1.3.2",
+  "description": "Ferramentas para ajudar na utilização do SPOC",
+  "author": "Japa (João Vitor Sarrizo)",
+  "private": true,
+  "scripts": {
+    "watch": "node ./node_modules/webpack/bin/webpack.js --mode=development --watch --config config/webpack.config.js",
+    "build": "node ./node_modules/webpack/bin/webpack.js --mode=production --config config/webpack.config.js"
+  }
+}
