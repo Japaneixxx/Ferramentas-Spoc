@@ -1,0 +1,36 @@
+name: Release on manifest version change
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get previous commit
+        id: prev
+        run: |
+          git fetch origin main
+          git checkout HEAD~1
+          PREV_VERSION=$(jq -r .version manifest.json)
+          echo "PREV_VERSION=$PREV_VERSION" >> $GITHUB_ENV
+          git checkout -
+
+      - name: Get current version
+        id: curr
+        run: |
+          CURR_VERSION=$(jq -r .version manifest.json)
+          echo "CURR_VERSION=$CURR_VERSION" >> $GITHUB_ENV
+
+      - name: Create Release if version changed
+        if: env.PREV_VERSION != env.CURR_VERSION
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.CURR_VERSION }}
+          name: Release ${{ env.CURR_VERSION }}
+          body: "Release gerada automaticamente para a versão ${{ env.CURR_VERSION }}"
