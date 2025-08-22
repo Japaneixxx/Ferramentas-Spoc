@@ -37,3 +37,4 @@ jobs:
             popup.html
             popup.js
             package.json
+          token: ${{ secrets.GH_RELEASE_TOKEN }}
