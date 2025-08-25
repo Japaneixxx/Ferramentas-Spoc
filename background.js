@@ -153,7 +153,7 @@ chrome.commands.onCommand.addListener((command, tab) => {
   let query = urlObject.searchParams.get('ssNum');
   var url = 'https://wapps.localiza.com/GestaoFrotas/Operacoes/FotoVistoria/AbrirImagensSS?ssSeq=10&ssNum='+query;
   chrome.tabs.create({ url: url });
-  var url = 'https://wapps.localiza.com//Manutencao/OP.ManutencaoCarro.AnaliseOrcamento/VisualizacaoVideos?ssNum=' + query + '&ssSeq=10';
+  var url = 'https://wapps.localiza.com/Manutencao/OP.ManutencaoCarro.AnaliseOrcamento/VisualizacaoVideos?ssNum=' + query + '&ssSeq=10';
   chrome.tabs.create({ url: url });
   });
   }
